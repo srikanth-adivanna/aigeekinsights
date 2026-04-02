@@ -10,38 +10,36 @@ const NAV_LINKS = [
 
 export default function Header() {
   return (
-    <header className="sticky top-0 z-50 border-b border-border bg-background/80 backdrop-blur-sm">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="flex h-16 items-center justify-between">
+    <header className="border-b border-border bg-background">
+      <div className="mx-auto max-w-6xl px-4 sm:px-6">
+        <div className="flex h-14 items-center justify-between gap-6">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2 group">
-            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary text-primary-foreground text-sm font-bold">
-              AI
+          <Link href="/" className="flex items-center gap-2.5 shrink-0">
+            <div className="h-6 w-6 rounded bg-foreground flex items-center justify-center">
+              <span className="text-[9px] font-bold text-background tracking-tight">AI</span>
             </div>
-            <span className="font-semibold text-foreground group-hover:text-primary transition-colors">
-              AI Geek Insights
-            </span>
+            <span className="text-sm font-semibold text-foreground">AI Geek Insights</span>
           </Link>
 
           {/* Desktop nav */}
-          <nav className="hidden md:flex items-center gap-1">
+          <nav className="hidden md:flex items-center gap-0.5 flex-1">
             {NAV_LINKS.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
-                className="px-3 py-2 rounded-md text-sm text-muted-foreground hover:text-foreground hover:bg-accent transition-colors"
+                className="px-3 py-1.5 rounded-md text-sm text-muted-foreground hover:text-foreground transition-colors"
               >
                 {link.label}
               </Link>
             ))}
           </nav>
 
-          {/* Right side */}
-          <div className="flex items-center gap-2">
+          {/* Right */}
+          <div className="flex items-center gap-1">
             <ThemeToggle />
             <Link
               href="/admin/review"
-              className="hidden sm:inline-flex items-center gap-1.5 rounded-md bg-primary px-3 py-1.5 text-sm font-medium text-primary-foreground hover:bg-primary/90 transition-colors"
+              className="ml-1 hidden sm:inline-flex items-center rounded-md border border-border bg-background px-3 py-1.5 text-sm font-medium text-foreground hover:bg-accent transition-colors"
             >
               Admin
             </Link>

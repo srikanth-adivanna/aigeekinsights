@@ -22,7 +22,7 @@ const SAMPLE_ARTICLES: ArticleCardProps[] = [
       "SmolLM3 achieves competitive performance against 7B parameter models on reasoning, math, and code tasks. The model uses an improved tokenizer and extended context window of 128k tokens, making it practical for edge deployment.",
     source: "Hugging Face Blog",
     category: "Models",
-    tags: ["LLM", "open-source", "small-models"],
+    tags: ["LLM", "open-source"],
     publishedAt: "Apr 2, 2026",
     url: "#",
   },
@@ -33,7 +33,7 @@ const SAMPLE_ARTICLES: ArticleCardProps[] = [
       "OpenAI's Operator agent now supports full computer use capabilities, allowing it to interact with any web interface without API access. Early benchmarks show 78% task completion on WebArena, up from 62% in the previous version.",
     source: "OpenAI Blog",
     category: "Agents",
-    tags: ["agents", "computer-use", "automation"],
+    tags: ["agents", "computer-use"],
     publishedAt: "Apr 1, 2026",
     url: "#",
   },
@@ -44,7 +44,7 @@ const SAMPLE_ARTICLES: ArticleCardProps[] = [
       "Step-by-step guide to building a retrieval-augmented generation system using LangChain's latest LCEL syntax. Covers chunking strategies, embedding model selection, and how to evaluate retrieval quality without expensive annotations.",
     source: "Towards Data Science",
     category: "Tutorials",
-    tags: ["RAG", "LangChain", "vector-db"],
+    tags: ["RAG", "LangChain"],
     publishedAt: "Apr 1, 2026",
     url: "#",
   },
@@ -55,7 +55,7 @@ const SAMPLE_ARTICLES: ArticleCardProps[] = [
       "Cursor's 1.0 release introduces an asynchronous agent that runs in the background while you continue coding. The new multi-file edit feature allows the AI to refactor across 50+ files in a single operation, with full diff preview.",
     source: "GitHub Trending",
     category: "Tools",
-    tags: ["IDE", "coding-assistant", "agents"],
+    tags: ["IDE", "coding-assistant"],
     publishedAt: "Mar 31, 2026",
     url: "#",
   },
@@ -63,10 +63,10 @@ const SAMPLE_ARTICLES: ArticleCardProps[] = [
     id: "6",
     title: "EU AI Act Enforcement Begins: What Developers Need to Know About High-Risk System Requirements",
     summary:
-      "The EU AI Act's high-risk system provisions take effect this month, requiring documentation, human oversight mechanisms, and bias audits for AI in hiring, credit scoring, and critical infrastructure. A practical guide for compliance.",
-    source: "The Batch (DeepLearning.AI)",
+      "The EU AI Act's high-risk system provisions take effect this month, requiring documentation, human oversight mechanisms, and bias audits for AI in hiring, credit scoring, and critical infrastructure.",
+    source: "The Batch",
     category: "News",
-    tags: ["regulation", "EU-AI-Act", "compliance"],
+    tags: ["regulation", "EU-AI-Act"],
     publishedAt: "Mar 31, 2026",
     url: "#",
   },
@@ -74,40 +74,62 @@ const SAMPLE_ARTICLES: ArticleCardProps[] = [
 
 const CATEGORIES = ["All", "Research", "Models", "Agents", "Tools", "Tutorials", "News"];
 
+const STATS = [
+  { value: "15+", label: "Sources" },
+  { value: "Daily", label: "Updates" },
+  { value: "6", label: "Categories" },
+  { value: "Free", label: "Always" },
+];
+
 export default function HomePage() {
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex flex-col min-h-screen bg-background">
       <Header />
 
       <main className="flex-1">
-        {/* Banner ad */}
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-4">
-          <AdSlot size="banner" />
-        </div>
-
         {/* Hero */}
-        <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-10">
-          <div className="text-center max-w-2xl mx-auto">
-            <h1 className="text-3xl sm:text-4xl font-bold tracking-tight text-foreground mb-3">
-              The Best of AI,{" "}
-              <span className="text-primary">Filtered Daily</span>
-            </h1>
-            <p className="text-muted-foreground text-base sm:text-lg">
-              Research papers, tools, news, and tutorials — aggregated from 15+ sources and summarised so you can stay ahead without the noise.
-            </p>
+        <section className="border-b border-border">
+          <div className="mx-auto max-w-6xl px-4 sm:px-6 py-20 sm:py-28">
+            <div className="max-w-3xl">
+              {/* Pill badge */}
+              <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-border bg-muted px-3 py-1">
+                <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
+                <span className="text-xs text-muted-foreground font-medium">Updated daily · Apr 2, 2026</span>
+              </div>
+
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-foreground leading-[1.1] mb-6">
+                The best of AI,
+                <br />
+                <span className="text-muted-foreground font-normal">filtered for you.</span>
+              </h1>
+
+              <p className="text-lg text-muted-foreground leading-relaxed max-w-xl mb-10">
+                Research papers, models, tools, and news — aggregated from 15+ sources, deduplicated, and summarised so you can stay current without the noise.
+              </p>
+
+              {/* Stats row */}
+              <div className="flex flex-wrap gap-x-8 gap-y-4">
+                {STATS.map((stat) => (
+                  <div key={stat.label}>
+                    <div className="text-2xl font-bold text-foreground">{stat.value}</div>
+                    <div className="text-sm text-muted-foreground">{stat.label}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
         </section>
 
         {/* Category filter bar */}
-        <div className="sticky top-16 z-40 border-b border-border bg-background/80 backdrop-blur-sm">
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            <div className="flex gap-1 overflow-x-auto py-2">
+        <div className="sticky top-0 z-40 border-b border-border bg-background/95 backdrop-blur-sm">
+          <div className="mx-auto max-w-6xl px-4 sm:px-6">
+            <div className="flex gap-0.5 overflow-x-auto py-2.5">
               {CATEGORIES.map((cat) => (
                 <button
                   key={cat}
-                  className={`shrink-0 rounded-full px-4 py-1.5 text-sm font-medium transition-colors ${
+                  className={`shrink-0 rounded-md px-3 py-1.5 text-sm transition-colors ${
                     cat === "All"
-                      ? "bg-primary text-primary-foreground"
+                      ? "bg-foreground text-background font-medium"
                       : "text-muted-foreground hover:text-foreground hover:bg-accent"
                   }`}
                 >
@@ -118,22 +140,25 @@ export default function HomePage() {
           </div>
         </div>
 
+        {/* Ad banner */}
+        <div className="mx-auto max-w-6xl px-4 sm:px-6 pt-6">
+          <AdSlot size="banner" />
+        </div>
+
         {/* Article grid */}
-        <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8">
+        <section className="mx-auto max-w-6xl px-4 sm:px-6 py-8">
           <div className="flex items-center justify-between mb-6">
-            <h2 className="text-sm font-medium text-muted-foreground">
-              Showing <span className="text-foreground font-semibold">{SAMPLE_ARTICLES.length}</span> articles
-            </h2>
-            <span className="text-xs text-muted-foreground">Last updated: Apr 2, 2026</span>
+            <p className="text-sm text-muted-foreground">
+              <span className="font-medium text-foreground">{SAMPLE_ARTICLES.length}</span> articles
+            </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {SAMPLE_ARTICLES.map((article) => (
               <ArticleCard key={article.id} {...article} />
             ))}
           </div>
 
-          {/* Ad after grid */}
           <div className="mt-8">
             <AdSlot size="leaderboard" />
           </div>

@@ -1,5 +1,3 @@
-import { Badge } from "@/components/ui/badge";
-import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
 import Link from "next/link";
 
 export interface ArticleCardProps {
@@ -14,16 +12,16 @@ export interface ArticleCardProps {
 }
 
 const CATEGORY_COLOURS: Record<string, string> = {
-  research:  "bg-violet-500/15 text-violet-400 border-violet-500/20",
-  tools:     "bg-blue-500/15 text-blue-400 border-blue-500/20",
-  news:      "bg-amber-500/15 text-amber-400 border-amber-500/20",
-  tutorials: "bg-green-500/15 text-green-400 border-green-500/20",
-  models:    "bg-pink-500/15 text-pink-400 border-pink-500/20",
-  agents:    "bg-cyan-500/15 text-cyan-400 border-cyan-500/20",
+  research:  "text-violet-600 bg-violet-50 dark:text-violet-400 dark:bg-violet-950/40",
+  tools:     "text-blue-600 bg-blue-50 dark:text-blue-400 dark:bg-blue-950/40",
+  news:      "text-amber-600 bg-amber-50 dark:text-amber-400 dark:bg-amber-950/40",
+  tutorials: "text-emerald-600 bg-emerald-50 dark:text-emerald-400 dark:bg-emerald-950/40",
+  models:    "text-pink-600 bg-pink-50 dark:text-pink-400 dark:bg-pink-950/40",
+  agents:    "text-cyan-600 bg-cyan-50 dark:text-cyan-400 dark:bg-cyan-950/40",
 };
 
 function categoryColour(category: string) {
-  return CATEGORY_COLOURS[category.toLowerCase()] ?? "bg-muted text-muted-foreground border-border";
+  return CATEGORY_COLOURS[category.toLowerCase()] ?? "text-foreground bg-muted";
 }
 
 export default function ArticleCard({
@@ -37,57 +35,48 @@ export default function ArticleCard({
   url,
 }: ArticleCardProps) {
   return (
-    <Card className="flex flex-col h-full hover:border-primary/40 transition-colors group">
-      <CardHeader className="pb-3">
-        {/* Source + Category row */}
-        <div className="flex items-center justify-between gap-2 mb-2">
-          <span className="text-xs text-muted-foreground font-medium truncate">{source}</span>
-          <Badge
-            variant="outline"
-            className={`shrink-0 text-xs capitalize ${categoryColour(category)}`}
-          >
-            {category}
-          </Badge>
-        </div>
+    <article className="group flex flex-col gap-3 rounded-xl border border-border bg-card p-5 hover:border-foreground/20 transition-colors">
+      {/* Category + source */}
+      <div className="flex items-center justify-between gap-2">
+        <span
+          className={`inline-flex items-center rounded-full px-2 py-0.5 text-xs font-medium capitalize ${categoryColour(category)}`}
+        >
+          {category}
+        </span>
+        <span className="text-xs text-muted-foreground truncate">{source}</span>
+      </div>
 
-        {/* Title */}
-        <h2 className="text-sm font-semibold leading-snug text-foreground group-hover:text-primary transition-colors line-clamp-2">
-          <a href={url} target="_blank" rel="noopener noreferrer">
-            {title}
-          </a>
+      {/* Title */}
+      <a href={url} target="_blank" rel="noopener noreferrer" className="block">
+        <h2 className="text-sm font-semibold leading-snug text-foreground group-hover:text-foreground/80 transition-colors line-clamp-2">
+          {title}
         </h2>
-      </CardHeader>
+      </a>
 
-      <CardContent className="pb-3 flex-1">
-        <p className="text-sm text-muted-foreground line-clamp-3 leading-relaxed">
-          {summary}
-        </p>
-      </CardContent>
+      {/* Summary */}
+      <p className="text-sm text-muted-foreground line-clamp-3 leading-relaxed flex-1">
+        {summary}
+      </p>
 
-      <CardFooter className="pt-0 flex items-center justify-between gap-2 flex-wrap">
-        {/* Tags */}
-        <div className="flex gap-1 flex-wrap">
-          {tags.slice(0, 3).map((tag) => (
-            <span
-              key={tag}
-              className="text-xs text-muted-foreground bg-muted px-1.5 py-0.5 rounded"
-            >
+      {/* Footer */}
+      <div className="flex items-center justify-between gap-2 pt-1 border-t border-border">
+        <div className="flex gap-1.5 flex-wrap">
+          {tags.slice(0, 2).map((tag) => (
+            <span key={tag} className="text-xs text-muted-foreground">
               #{tag}
             </span>
           ))}
         </div>
-
-        {/* Date + Read more */}
-        <div className="flex items-center gap-3 ml-auto">
-          <span className="text-xs text-muted-foreground whitespace-nowrap">{publishedAt}</span>
+        <div className="flex items-center gap-3 ml-auto shrink-0">
+          <span className="text-xs text-muted-foreground">{publishedAt}</span>
           <Link
             href={`/article/${id}`}
-            className="text-xs font-medium text-primary hover:underline whitespace-nowrap"
+            className="text-xs font-medium text-foreground hover:text-muted-foreground transition-colors"
           >
-            Read more →
+            Read →
           </Link>
         </div>
-      </CardFooter>
-    </Card>
+      </div>
+    </article>
   );
 }
